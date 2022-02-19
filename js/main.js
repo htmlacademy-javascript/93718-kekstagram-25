@@ -1,11 +1,11 @@
 // Функция для получения случайного положительного целого числа из диапозона
 function getRandomNumber(min, max) {
-	if (min < 0) {
-  	return console.log('Минимальное число меньше нуля!')
+  if (min < 0) {
+    return 'Минимальное число меньше нуля!';
   }
 
   if (min > max || min === max) {
-  	return console.log('Минимальное число больше или равно максимальному!')
+    return 'Минимальное число больше или равно максимальному!';
   }
 
   min = Math.ceil(min);
@@ -24,7 +24,7 @@ const maxCommentLength = getRandomNumber(1, 140);
 
 // Функция для проверки максимальной длины строки
 function checkMaxLength (str, maxLength) {
-	return console.log (str.length <= maxLength)
+  return str.length <= maxLength;
 }
 
 checkMaxLength (commentText, maxCommentLength);
