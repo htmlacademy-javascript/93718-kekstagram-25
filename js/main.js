@@ -11,7 +11,7 @@ function getRandomNumber(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
 
-  return console.log(Math.floor(Math.random() * (max - min + 1)) + min);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 getRandomNumber(0, 2);
@@ -19,3 +19,12 @@ getRandomNumber(-2, 2);
 getRandomNumber(2, 2);
 getRandomNumber(3, 2);
 
+const commentText = 'Lorem ipsum dolor sit amet consectetur adipisicing elit.';
+const maxCommentLength = getRandomNumber(1, 140);
+
+// Функция для проверки максимальной длины строки
+function checkMaxLength (str, maxLength) {
+	return console.log (str.length <= maxLength)
+}
+
+checkMaxLength (commentText, maxCommentLength);
