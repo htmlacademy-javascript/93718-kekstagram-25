@@ -82,3 +82,13 @@ function createComment () {
   };
 }
 
+function createPhotoDescription () {
+  return {
+    url: `photos/${photoId++}.jpg`,
+    description: createRandomElement(DESCRIPTION),
+    likes: getRandomNumber(15, 200),
+    comments: Array.from({length: getRandomNumber(1, 10)}, createComment)
+  };
+}
+
+
