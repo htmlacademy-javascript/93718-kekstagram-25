@@ -1,5 +1,5 @@
 // Функция для получения случайного положительного целого числа из диапозона
-function getRandomNumber (min, max) {
+const getRandomNumber = (min, max) => {
   if (min < 0) {
     return 'Минимальное число меньше нуля!';
   }
@@ -12,7 +12,7 @@ function getRandomNumber (min, max) {
   max = Math.floor(max);
 
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+};
 
 getRandomNumber(0, 2);
 getRandomNumber(-2, 2);
@@ -23,9 +23,7 @@ const commentText = 'Lorem ipsum dolor sit amet consectetur adipisicing elit.';
 const maxCommentLength = getRandomNumber(1, 140);
 
 // Функция для проверки максимальной длины строки
-function checkMaxLength (str, maxLength) {
-  return str.length <= maxLength;
-}
+const checkMaxLength = (str, maxLength) => str.length <= maxLength;
 
 checkMaxLength (commentText, maxCommentLength);
 
@@ -73,23 +71,23 @@ const createRandomElement = (element) => element[getRandomNumber(0, element.leng
 let photoId = 1;
 let commentId = 1;
 
-function createComment () {
-  return {
+const createComment = () => (
+  {
     id: commentId++,
     avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
     message: createRandomElement(MESSAGE),
     name: createRandomElement(NAME)
-  };
-}
+  }
+);
 
-function createPhotoDescription () {
-  return {
+const createPhotoDescription = () => (
+  {
     url: `photos/${photoId++}.jpg`,
     description: createRandomElement(DESCRIPTION),
     likes: getRandomNumber(15, 200),
     comments: Array.from({length: getRandomNumber(1, 10)}, createComment)
-  };
-}
+  }
+);
 
 const generateData = Array.from({length: CARDS_COUNT}, createPhotoDescription);
 
