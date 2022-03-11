@@ -73,3 +73,12 @@ const createRandomElement = (element) => element[getRandomNumber(0, element.leng
 let photoId = 1;
 let commentId = 1;
 
+function createComment () {
+  return {
+    id: commentId++,
+    avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
+    message: createRandomElement(MESSAGE),
+    name: createRandomElement(NAME)
+  };
+}
+
