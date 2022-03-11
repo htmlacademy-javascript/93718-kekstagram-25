@@ -93,4 +93,4 @@ function createPhotoDescription () {
 
 const generateData = Array.from({length: CARDS_COUNT}, createPhotoDescription);
 
-console.log(generateData);
+// console.log(generateData);
