@@ -70,3 +70,6 @@ const MESSAGE = [
 
 const createRandomElement = (element) => element[getRandomNumber(0, element.length - 1)];
 
+let photoId = 1;
+let commentId = 1;
+
