@@ -33,7 +33,7 @@ const createRandomElement = (element) => element[getRandomNumber(0, element.leng
 const createId = () => {
   let lastId = 0;
 
-  return function () {
+  return () => {
     lastId += 1;
 
     return lastId;
