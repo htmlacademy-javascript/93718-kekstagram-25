@@ -29,4 +29,15 @@ checkMaxLength (commentText, maxCommentLength);
 
 const createRandomElement = (element) => element[getRandomNumber(0, element.length - 1)];
 
-export {getRandomNumber, createRandomElement};
+// Функция для генерации id
+const createId = () => {
+  let lastId = 0;
+
+  return function () {
+    lastId += 1;
+
+    return lastId;
+  };
+};
+
+export {getRandomNumber, createRandomElement, createId};
