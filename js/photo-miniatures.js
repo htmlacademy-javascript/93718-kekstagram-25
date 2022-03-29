@@ -14,3 +14,5 @@ miniaturesData.forEach(({url, likes, comments}) => {
   elementPicture.querySelector('.picture__comments').textContent = comments.length;
   fragment.appendChild(elementPicture);
 });
+
+picturesContainer.appendChild(fragment);
