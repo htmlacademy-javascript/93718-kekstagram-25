@@ -5,6 +5,8 @@ const commentsCount = bigPicture.querySelector('.comments-count');
 const pictureDescription = bigPicture.querySelector('.social__caption');
 const commentsList = bigPicture.querySelector('.social__comments');
 const commentItem = commentsList.querySelector('.social__comment');
+const socialCommentCount = bigPicture.querySelector('.social__comment-count');
+const commentsLoader = bigPicture.querySelector('.comments-loader');
 
 const showComments = (element) => {
   commentsList.innerHTML = '';
@@ -20,9 +22,10 @@ const showComments = (element) => {
   });
 };
 
-
 const showBigPicture = ({url, likes, comments, description}) => {
   bigPicture.classList.remove('hidden');
+  socialCommentCount.classList.add('hidden');
+  commentsLoader.classList.add('hidden');
 
   bigPictureImg.src = url;
   likesCount.textContent = likes;
