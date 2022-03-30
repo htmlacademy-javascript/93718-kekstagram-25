@@ -1,4 +1,4 @@
-import {getRandomNumber, createRandomElement} from './util.js';
+import {getRandomNumber, createRandomElement, createId} from './util.js';
 
 // Генерируем случайные данные фотографий и комментариев к ним
 
@@ -40,12 +40,12 @@ const MESSAGE = [
   'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
 ];
 
-let photoId = 1;
-let commentId = 1;
+const photoId = createId();
+const commentId = createId();
 
 const createComment = () => (
   {
-    id: commentId++,
+    id: commentId(),
     avatar: `img/avatar-${getRandomNumber(1, 6)}.svg`,
     message: createRandomElement(MESSAGE),
     name: createRandomElement(NAME)
@@ -54,7 +54,7 @@ const createComment = () => (
 
 const createPhotoDescription = () => (
   {
-    url: `photos/${photoId++}.jpg`,
+    url: `photos/${photoId()}.jpg`,
     description: createRandomElement(DESCRIPTION),
     likes: getRandomNumber(15, 200),
     comments: Array.from({length: getRandomNumber(1, 10)}, createComment)
