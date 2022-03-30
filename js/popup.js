@@ -1,3 +1,4 @@
+const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
 const likesCount = bigPicture.querySelector('.likes-count');
@@ -24,6 +25,7 @@ const showComments = (element) => {
 
 const showBigPicture = ({url, likes, comments, description}) => {
   bigPicture.classList.remove('hidden');
+  body.classList.add('modal-open');
   socialCommentCount.classList.add('hidden');
   commentsLoader.classList.add('hidden');
 
