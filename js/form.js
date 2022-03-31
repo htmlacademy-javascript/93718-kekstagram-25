@@ -5,6 +5,8 @@ const form = body.querySelector('.img-upload__form');
 const imgUploadInput = form.querySelector('.img-upload__input');
 const imgUploadOverlay = form.querySelector('.img-upload__overlay');
 const imgUploadCancel = form.querySelector('.img-upload__cancel');
+const textHashtags = form.querySelector('.text__hashtags');
+const textDescription = form.querySelector('.text__description');
 
 const closeForm =  () => {
   imgUploadOverlay.classList.add('hidden');
@@ -20,6 +22,8 @@ function closeEscapeButton (evt) {
     closeForm();
 
     resetValue(imgUploadInput);
+    resetValue(textHashtags);
+    resetValue(textDescription);
   }
 }
 
