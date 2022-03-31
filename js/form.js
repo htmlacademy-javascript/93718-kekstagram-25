@@ -1,4 +1,4 @@
-import {isEscapeKey} from './util.js';
+import {isEscapeKey, resetValue} from './util.js';
 
 const body = document.querySelector('body');
 const form = body.querySelector('.img-upload__form');
@@ -18,6 +18,8 @@ function closeEscapeButton (evt) {
     evt.preventDefault();
 
     closeForm();
+
+    resetValue(imgUploadInput);
   }
 }
 

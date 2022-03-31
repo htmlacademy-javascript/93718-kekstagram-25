@@ -42,4 +42,8 @@ const createId = () => {
 
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-export {getRandomNumber, createRandomElement, createId, isEscapeKey};
+const resetValue = (element) => {
+  element.value = '';
+};
+
+export {getRandomNumber, createRandomElement, createId, isEscapeKey, resetValue};
