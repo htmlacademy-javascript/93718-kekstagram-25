@@ -26,19 +26,19 @@ const showComments = (element) => {
   });
 };
 
-const closeEscapeButton = (evt) => {
+const closeBigPicture = () => {
+  bigPicture.classList.add('hidden');
+  body.classList.remove('modal-open');
+
+  document.removeEventListener('keydown', closeEscapeButton);
+};
+
+function closeEscapeButton (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
 
     closeBigPicture();
   }
-};
-
-function closeBigPicture () {
-  bigPicture.classList.add('hidden');
-  body.classList.remove('modal-open');
-
-  document.removeEventListener('keydown', closeEscapeButton);
 }
 
 const showBigPicture = ({url, likes, comments, description}) => {
