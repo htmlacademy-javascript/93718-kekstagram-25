@@ -1,4 +1,5 @@
 import {generateData} from './data.js';
+import {showBigPicture} from './popup.js';
 
 const picturesContainer = document.querySelector('.pictures');
 const picturesTemplate = document.querySelector('#picture')
@@ -8,12 +9,19 @@ const fragment = document.createDocumentFragment();
 
 const miniaturesData = generateData();
 
-miniaturesData.forEach(({url, likes, comments}) => {
+miniaturesData.forEach(({url, likes, comments, description}) => {
   const elementPicture = picturesTemplate.cloneNode(true);
 
   elementPicture.querySelector('.picture__img').src = url;
   elementPicture.querySelector('.picture__likes').textContent = likes;
   elementPicture.querySelector('.picture__comments').textContent = comments.length;
+
+  elementPicture.addEventListener('click', (evt) => {
+    evt.preventDefault();
+
+    showBigPicture({url, likes, comments, description});
+  });
+
   fragment.appendChild(elementPicture);
 });
 
