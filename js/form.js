@@ -13,6 +13,11 @@ const closeForm =  () => {
   body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', closeEscapeButton);
+
+  resetValue(imgUploadInput);
+  resetValue(textHashtags);
+  resetValue(textDescription);
+  document.querySelector('#effect-none').checked = true;
 };
 
 function closeEscapeButton (evt) {
@@ -20,10 +25,6 @@ function closeEscapeButton (evt) {
     evt.preventDefault();
 
     closeForm();
-
-    resetValue(imgUploadInput);
-    resetValue(textHashtags);
-    resetValue(textDescription);
   }
 }
 
