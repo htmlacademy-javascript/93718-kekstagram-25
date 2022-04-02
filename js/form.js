@@ -8,11 +8,11 @@ const imgUploadCancel = form.querySelector('.img-upload__cancel');
 const textHashtags = form.querySelector('.text__hashtags');
 const textDescription = form.querySelector('.text__description');
 
-const closeForm =  () => {
+const formCloseHandler =  () => {
   imgUploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
 
-  document.removeEventListener('keydown', closeEscapeButton);
+  document.removeEventListener('keydown', buttonEscCloseHandler);
 
   resetValue(imgUploadInput);
   resetValue(textHashtags);
@@ -20,20 +20,20 @@ const closeForm =  () => {
   document.querySelector('#effect-none').checked = true;
 };
 
-function closeEscapeButton (evt) {
+function buttonEscCloseHandler (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
 
-    closeForm();
+    formCloseHandler();
   }
 }
 
-const openForm = () => {
+const formOpenHandler = () => {
   imgUploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
 
-  imgUploadCancel.addEventListener('click', closeForm);
-  document.addEventListener('keydown', closeEscapeButton);
+  imgUploadCancel.addEventListener('click', formCloseHandler);
+  document.addEventListener('keydown', buttonEscCloseHandler);
 };
 
-imgUploadInput.addEventListener('change', openForm);
+imgUploadInput.addEventListener('change', formOpenHandler);

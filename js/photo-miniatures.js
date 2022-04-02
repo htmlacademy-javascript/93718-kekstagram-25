@@ -1,5 +1,5 @@
 import {generateData} from './data.js';
-import {showBigPicture} from './popup.js';
+import {bigPictureShow} from './popup.js';
 
 const picturesContainer = document.querySelector('.pictures');
 const picturesTemplate = document.querySelector('#picture')
@@ -19,7 +19,7 @@ miniaturesData.forEach(({url, likes, comments, description}) => {
   elementPicture.addEventListener('click', (evt) => {
     evt.preventDefault();
 
-    showBigPicture({url, likes, comments, description});
+    bigPictureShow({url, likes, comments, description});
   });
 
   fragment.appendChild(elementPicture);
