@@ -13,6 +13,12 @@ const imgUploadOverlay = uploadForm.querySelector('.img-upload__overlay');
 const textHashtags = uploadForm.querySelector('.text__hashtags');
 const textDescription = uploadForm.querySelector('.text__description');
 
+const pristine = new Pristine(uploadForm, {
+  classTo: 'img-upload__validate', // Элемент, на который будут добавляться классы
+  errorTextParent: 'img-upload__validate', // Элемент, куда будет выводиться текст с ошибкой
+  errorTextTag: 'div' // Тег, который будет обрамлять текст ошибки
+});
+
 const formCloseHandler =  () => {
   imgUploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
