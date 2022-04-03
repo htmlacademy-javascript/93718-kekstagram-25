@@ -96,12 +96,20 @@ const isValidForm = (evt) => {
   }
 };
 
+const buttonEscCancelHandler = () => document.removeEventListener('keydown', buttonEscCloseHandler);
+
+const buttonEscRestoreHandler = () => document.addEventListener('keydown', buttonEscCloseHandler);
+
 const formCloseHandler =  () => {
   imgUploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', buttonEscCloseHandler);
   uploadForm.removeEventListener('submit', isValidForm);
+  textDescription.removeEventListener('focusin', buttonEscCancelHandler);
+  textDescription.removeEventListener('focusout', buttonEscRestoreHandler);
+  textHashtags.removeEventListener('focusin', buttonEscCancelHandler);
+  textHashtags.removeEventListener('focusout', buttonEscRestoreHandler);
 
   uploadForm.reset();
 };
@@ -121,6 +129,10 @@ const formOpenHandler = () => {
   closePopupButton.addEventListener('click', formCloseHandler);
   document.addEventListener('keydown', buttonEscCloseHandler);
   uploadForm.addEventListener('submit', isValidForm);
+  textDescription.addEventListener('focusin', buttonEscCancelHandler);
+  textDescription.addEventListener('focusout', buttonEscRestoreHandler);
+  textHashtags.addEventListener('focusin', buttonEscCancelHandler);
+  textHashtags.addEventListener('focusout', buttonEscRestoreHandler);
 };
 
 uploadFileForm.addEventListener('change', formOpenHandler);
