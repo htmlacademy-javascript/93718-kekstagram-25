@@ -1,12 +1,12 @@
-import {isEscapeKey, resetValue} from './util.js';
+import {isEscapeKey} from './util.js';
 
 const body = document.querySelector('body');
-const form = body.querySelector('.img-upload__form');
-const uploadFileForm = form.querySelector('#upload-file');
-const closePopupButton = form.querySelector('#upload-cancel');
-const imgUploadOverlay = form.querySelector('.img-upload__overlay');
-const textHashtags = form.querySelector('.text__hashtags');
-const textDescription = form.querySelector('.text__description');
+const uploadForm = body.querySelector('.img-upload__form');
+const uploadFileForm = uploadForm.querySelector('#upload-file');
+const closePopupButton = uploadForm.querySelector('#upload-cancel');
+const imgUploadOverlay = uploadForm.querySelector('.img-upload__overlay');
+const textHashtags = uploadForm.querySelector('.text__hashtags');
+const textDescription = uploadForm.querySelector('.text__description');
 
 const formCloseHandler =  () => {
   imgUploadOverlay.classList.add('hidden');
@@ -14,10 +14,7 @@ const formCloseHandler =  () => {
 
   document.removeEventListener('keydown', buttonEscCloseHandler);
 
-  resetValue(uploadFileForm);
-  resetValue(textHashtags);
-  resetValue(textDescription);
-  document.querySelector('#effect-none').checked = true;
+  uploadForm.reset();
 };
 
 function buttonEscCloseHandler (evt) {
