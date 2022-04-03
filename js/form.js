@@ -1,4 +1,9 @@
-import {isEscapeKey} from './util.js';
+import {checkMaxLength, isEscapeKey} from './util.js';
+
+const MAX_LENGTH_DESCRIPTION = 140;
+const MAX_HASHTAGS = 5;
+const MAX_LENGTH_HASHTAG = 20;
+const REG = /^#[\dA-Za-zА-Яа-яЁё0-9]{1,}$/;
 
 const body = document.querySelector('body');
 const uploadForm = body.querySelector('.img-upload__form');
