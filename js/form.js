@@ -27,6 +27,67 @@ pristine.addValidator(
   `Максимальная длина ${MAX_LENGTH_DESCRIPTION} символов`
 );
 
+const getArrayHashtags = (string) => {
+  string = string.toLowerCase().trim();
+  const arrHashtags = string.split(' ');
+  return arrHashtags.filter((hashtag) => (hashtag !== ''));
+};
+
+const checkHashtagSymbol = (value) => getArrayHashtags(value)
+  .every((hashtag) => (hashtag.startsWith('#')));
+
+pristine.addValidator(
+  textHashtags,
+  checkHashtagSymbol,
+  'Хэштег должен начинаться со знака "#"'
+);
+
+const isOnlyHashtag = (value) => !(getArrayHashtags(value)
+  .some((hashtag) => (hashtag.startsWith('#') && hashtag.length === 1)));
+
+pristine.addValidator(
+  textHashtags,
+  isOnlyHashtag,
+  'Хэштег не может содержать только "#"'
+);
+
+const checkHashtagsRepeat = (value) => {
+  const hashtag = getArrayHashtags(value);
+  return !(hashtag.some((tag, index) => hashtag.indexOf(tag) !== index));
+};
+
+pristine.addValidator(
+  textHashtags,
+  checkHashtagsRepeat,
+  'Хэштеги не должны повторяться'
+);
+
+const checkHashtagsLength = (value) => getArrayHashtags(value)
+  .every((hashtag) => (checkMaxLength(hashtag, MAX_LENGTH_HASHTAG)));
+
+pristine.addValidator(
+  textHashtags,
+  checkHashtagsLength,
+  `Хэштег не должен быть больше ${MAX_LENGTH_HASHTAG} символов, включая "#"`
+);
+
+const checkHashtagsCount = (value) => checkMaxLength(getArrayHashtags(value), MAX_HASHTAGS);
+
+pristine.addValidator(
+  textHashtags,
+  checkHashtagsCount,
+  `Хэштегов не должно быть больше ${MAX_HASHTAGS}`
+);
+
+const checkHashtagReg = (value) => getArrayHashtags(value)
+  .every((hashtag) => (hashtag.match(REG)));
+
+pristine.addValidator(
+  textHashtags,
+  checkHashtagReg,
+  'Невалидный хэштег'
+);
+
 const isValidForm = (evt) => {
   const isValid = pristine.validate();
 
