@@ -19,11 +19,28 @@ const pristine = new Pristine(uploadForm, {
   errorTextTag: 'div' // Тег, который будет обрамлять текст ошибки
 });
 
+const checkLengthDescription = (value) => checkMaxLength(value, MAX_LENGTH_DESCRIPTION);
+
+pristine.addValidator(
+  textDescription,
+  checkLengthDescription,
+  `Максимальная длина ${MAX_LENGTH_DESCRIPTION} символов`
+);
+
+const isValidForm = (evt) => {
+  const isValid = pristine.validate();
+
+  if (!isValid) {
+    evt.preventDefault();
+  }
+};
+
 const formCloseHandler =  () => {
   imgUploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
 
   document.removeEventListener('keydown', buttonEscCloseHandler);
+  uploadForm.removeEventListener('submit', isValidForm);
 
   uploadForm.reset();
 };
@@ -42,6 +59,7 @@ const formOpenHandler = () => {
 
   closePopupButton.addEventListener('click', formCloseHandler);
   document.addEventListener('keydown', buttonEscCloseHandler);
+  uploadForm.addEventListener('submit', isValidForm);
 };
 
 uploadFileForm.addEventListener('change', formOpenHandler);
