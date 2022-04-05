@@ -28,6 +28,12 @@ const showComments = (element) => {
   });
 };
 
+const getCommentsCount = () => {
+  const socialCommentsCount = document.querySelectorAll('.social__comment').length;
+
+  currentComments.textContent = socialCommentsCount;
+};
+
 const bigPictureCloseHandler = () => {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
