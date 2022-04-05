@@ -1,14 +1,16 @@
 import {isEscapeKey} from './util.js';
 
+const COMMENTS_PER_STEP = 5;
+
 const body = document.querySelector('body');
 const bigPicture = document.querySelector('.big-picture');
 const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
 const likesCount = bigPicture.querySelector('.likes-count');
-const commentsCount = bigPicture.querySelector('.comments-count');
+const commentsCountElement = bigPicture.querySelector('.comments-count');
 const pictureDescription = bigPicture.querySelector('.social__caption');
 const commentsList = bigPicture.querySelector('.social__comments');
 const commentItem = commentsList.querySelector('.social__comment');
-const socialCommentCount = bigPicture.querySelector('.social__comment-count');
+const currentComments = document.querySelector('.current-comments');
 const commentsLoader = bigPicture.querySelector('.comments-loader');
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
 
@@ -44,12 +46,10 @@ function buttonEscCloseHandler (evt) {
 const bigPictureShow = ({url, likes, comments, description}) => {
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
-  socialCommentCount.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
 
   bigPictureImg.src = url;
   likesCount.textContent = likes;
-  commentsCount.textContent = comments.length;
+  commentsCountElement.textContent = comments.length;
   pictureDescription.textContent = description;
   showComments(comments);
 
