@@ -15,8 +15,6 @@ const commentsLoader = bigPicture.querySelector('.comments-loader');
 const closeButton = bigPicture.querySelector('.big-picture__cancel');
 
 const showComments = (element) => {
-  commentsList.innerHTML = '';
-
   element.forEach((comment) => {
     const commentElement = commentItem.cloneNode(true);
 
@@ -80,7 +78,17 @@ const bigPictureShow = ({url, likes, comments, description}) => {
   likesCount.textContent = likes;
   commentsCountElement.textContent = comments.length;
   pictureDescription.textContent = description;
-  showComments(comments);
+
+  commentsList.innerHTML = '';
+  commentsArr = comments.slice();
+  showComments(commentsArr.splice(0, COMMENTS_PER_STEP));
+  currentComments.textContent = document.querySelectorAll('.social__comment').length;
+
+  if (comments.length <= COMMENTS_PER_STEP) {
+    hideCommentsLoader();
+  } else {
+    showCommentsLoader();
+  }
 
   document.addEventListener('keydown', buttonEscCloseHandler);
   closeButton.addEventListener('click', bigPictureCloseHandler);
