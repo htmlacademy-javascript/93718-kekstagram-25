@@ -34,6 +34,29 @@ const getCommentsCount = () => {
   currentComments.textContent = socialCommentsCount;
 };
 
+const showCommentsLoader = () => {
+  commentsLoader.classList.remove('hidden');
+
+  commentsLoader.addEventListener('click', commentsLoaderClickHandler);
+};
+
+const hideCommentsLoader = () => {
+  commentsLoader.classList.add('hidden');
+
+  commentsLoader.removeEventListener('click', commentsLoaderClickHandler);
+};
+
+let commentsArr = [];
+
+function commentsLoaderClickHandler () {
+  if (commentsArr.length <= COMMENTS_PER_STEP) {
+    hideCommentsLoader();
+  }
+
+  showComments(commentsArr.splice(0, COMMENTS_PER_STEP));
+  getCommentsCount();
+}
+
 const bigPictureCloseHandler = () => {
   bigPicture.classList.add('hidden');
   body.classList.remove('modal-open');
