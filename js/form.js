@@ -24,6 +24,26 @@ const changeImagePreview = (scale) => {
   imgUploadPreview.style.transform = `scale(${scale / 100})`;
 };
 
+const decreaseScale = () => {
+  let scale = parseInt(scaleControlValue.value, 10);
+
+  if (scale > MIN_SCALE_CONTROL) {
+    scale -= SCALE_CONTROL_STEP;
+    scaleControlValue.value = `${scale}%`;
+    changeImagePreview (scale);
+  }
+};
+
+const increaseScale = () => {
+  let scale = parseInt(scaleControlValue.value, 10);
+
+  if (scale < MAX_SCALE_CONTROL) {
+    scale += SCALE_CONTROL_STEP;
+    scaleControlValue.value = `${scale}%`;
+    changeImagePreview (scale);
+  }
+};
+
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__validate', // Элемент, на который будут добавляться классы
   errorTextParent: 'img-upload__validate', // Элемент, куда будет выводиться текст с ошибкой
