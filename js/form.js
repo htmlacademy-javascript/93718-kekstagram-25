@@ -141,6 +141,8 @@ const formCloseHandler =  () => {
   textDescription.removeEventListener('focusout', buttonEscRestoreHandler);
   textHashtags.removeEventListener('focusin', buttonEscCancelHandler);
   textHashtags.removeEventListener('focusout', buttonEscRestoreHandler);
+  scaleControlSmaller.removeEventListener('click', decreaseScale);
+  scaleControlBigger.removeEventListener('click', increaseScale);
 
   uploadForm.reset();
 };
@@ -164,6 +166,8 @@ const formOpenHandler = () => {
   textDescription.addEventListener('focusout', buttonEscRestoreHandler);
   textHashtags.addEventListener('focusin', buttonEscCancelHandler);
   textHashtags.addEventListener('focusout', buttonEscRestoreHandler);
+  scaleControlSmaller.addEventListener('click', decreaseScale);
+  scaleControlBigger.addEventListener('click', increaseScale);
 };
 
 uploadFileForm.addEventListener('change', formOpenHandler);
