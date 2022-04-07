@@ -20,6 +20,10 @@ const scaleControlSmaller = uploadForm.querySelector('.scale__control--smaller')
 const scaleControlBigger = uploadForm.querySelector('.scale__control--bigger');
 const scaleControlValue = uploadForm.querySelector('.scale__control--value');
 
+const changeImagePreview = (scale) => {
+  imgUploadPreview.style.transform = `scale(${scale / 100})`;
+};
+
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__validate', // Элемент, на который будут добавляться классы
   errorTextParent: 'img-upload__validate', // Элемент, куда будет выводиться текст с ошибкой
