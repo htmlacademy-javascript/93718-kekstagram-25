@@ -4,6 +4,9 @@ const MAX_LENGTH_DESCRIPTION = 140;
 const MAX_HASHTAGS = 5;
 const MAX_LENGTH_HASHTAG = 20;
 const REG = /^#[\dA-Za-zА-Яа-яЁё0-9]{1,}$/;
+const SCALE_CONTROL_STEP = 25;
+const MIN_SCALE_CONTROL = 25;
+const MAX_SCALE_CONTROL = 100;
 
 const body = document.querySelector('body');
 const uploadForm = body.querySelector('.img-upload__form');
@@ -12,6 +15,10 @@ const closePopupButton = uploadForm.querySelector('#upload-cancel');
 const imgUploadOverlay = uploadForm.querySelector('.img-upload__overlay');
 const textHashtags = uploadForm.querySelector('.text__hashtags');
 const textDescription = uploadForm.querySelector('.text__description');
+const imgUploadPreview = uploadForm.querySelector('.img-upload__preview');
+const scaleControlSmaller = uploadForm.querySelector('.scale__control--smaller');
+const scaleControlBigger = uploadForm.querySelector('.scale__control--bigger');
+const scaleControlValue = uploadForm.querySelector('.scale__control--value');
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__validate', // Элемент, на который будут добавляться классы
