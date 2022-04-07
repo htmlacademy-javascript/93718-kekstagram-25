@@ -144,6 +144,7 @@ const formCloseHandler =  () => {
   scaleControlSmaller.removeEventListener('click', decreaseScale);
   scaleControlBigger.removeEventListener('click', increaseScale);
 
+  changeImagePreview(100);
   uploadForm.reset();
 };
 
