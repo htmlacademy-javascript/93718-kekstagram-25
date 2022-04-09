@@ -61,6 +61,26 @@ const effectSlider = uploadForm.querySelector('.effect-level__slider');
 const effectValue = uploadForm.querySelector('.effect-level__value');
 const effectsList = document.querySelector('.effects__list');
 
+noUiSlider.create(effectSlider, {
+  range: {
+    min: 0,
+    max: 100,
+  },
+  start: 100,
+  step: 0.1
+});
+
+effectSlider.noUiSlider.on('update', () => {
+  effectValue.value = effectSlider.noUiSlider.get();
+  const filterName = imgUploadPreview.dataset.filterName;
+
+  if (filterName) {
+    const effect = FILTERS[filterName].effect;
+    const unit = FILTERS[filterName].unit;
+    imgUploadPreview.style.filter = `${effect}(${effectValue.value}${unit})`;
+  }
+});
+
 const changeImagePreview = (scale) => {
   imgUploadPreview.style.transform = `scale(${scale / 100})`;
 };
