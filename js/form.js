@@ -240,8 +240,12 @@ const formCloseHandler =  () => {
   textHashtags.removeEventListener('focusout', buttonEscRestoreHandler);
   scaleControlSmaller.removeEventListener('click', decreaseScale);
   scaleControlBigger.removeEventListener('click', increaseScale);
+  effectsList.removeEventListener('change', effectsChangeHandler);
 
   changeImagePreview(100);
+  imgUploadPreview.className = '';
+  imgUploadPreview.classList.add('img-upload__preview', 'effects__preview--none');
+  imgUploadPreview.style.filter = 'none';
   uploadForm.reset();
 };
 
@@ -266,6 +270,12 @@ const formOpenHandler = () => {
   textHashtags.addEventListener('focusout', buttonEscRestoreHandler);
   scaleControlSmaller.addEventListener('click', decreaseScale);
   scaleControlBigger.addEventListener('click', increaseScale);
+
+  if (imgUploadPreview.matches('.effects__preview--none')) {
+    effectSlider.classList.add('visually-hidden');
+  }
+
+  effectsList.addEventListener('change', effectsChangeHandler);
 };
 
 uploadFileForm.addEventListener('change', formOpenHandler);
