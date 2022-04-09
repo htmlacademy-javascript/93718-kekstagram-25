@@ -1,145 +1,35 @@
-import {checkMaxLength, isEscapeKey} from './util.js';
+import {
+  checkMaxLength,
+  isEscapeKey
+} from './util.js';
+
+import {
+  effectsList,
+  effectSlider,
+  effectsChangeHandler
+} from './effects.js';
+
+import {
+  scaleControlSmaller,
+  scaleControlBigger,
+  changeImagePreview,
+  scaleDecreaseHandler,
+  scaleIncreaseHandler
+} from './scale-control.js';
 
 const MAX_LENGTH_DESCRIPTION = 140;
 const MAX_HASHTAGS = 5;
 const MAX_LENGTH_HASHTAG = 20;
 const REG = /^#[\dA-Za-zА-Яа-яЁё0-9]{1,}$/;
-const SCALE_CONTROL_STEP = 25;
-const MIN_SCALE_CONTROL = 25;
-const MAX_SCALE_CONTROL = 100;
-
-const FILTERS = {
-  chrome: {
-    effect: 'grayscale',
-    min: 0,
-    max: 1,
-    step: 0.1,
-    unit: ''
-  },
-  sepia: {
-    effect: 'sepia',
-    min: 0,
-    max: 1,
-    step: 0.1,
-    unit: ''
-  },
-  marvin: {
-    effect: 'invert',
-    min: 0,
-    max: 100,
-    step: 1,
-    unit: '%'
-  },
-  phobos: {
-    effect: 'blur',
-    min: 0,
-    max: 3,
-    step: 0.1,
-    unit: 'px'
-  },
-  heat: {
-    effect: 'brightness',
-    min: 1,
-    max: 3,
-    step: 0.1,
-    unit: ''
-  }
-};
 
 const body = document.querySelector('body');
 const uploadForm = body.querySelector('.img-upload__form');
 const uploadFileForm = uploadForm.querySelector('#upload-file');
 const closePopupButton = uploadForm.querySelector('#upload-cancel');
 const imgUploadOverlay = uploadForm.querySelector('.img-upload__overlay');
+const imgUploadPreview = uploadForm.querySelector('.img-upload__preview');
 const textHashtags = uploadForm.querySelector('.text__hashtags');
 const textDescription = uploadForm.querySelector('.text__description');
-const imgUploadPreview = uploadForm.querySelector('.img-upload__preview');
-const scaleControlSmaller = uploadForm.querySelector('.scale__control--smaller');
-const scaleControlBigger = uploadForm.querySelector('.scale__control--bigger');
-const scaleControlValue = uploadForm.querySelector('.scale__control--value');
-const effectSlider = uploadForm.querySelector('.effect-level__slider');
-const effectValue = uploadForm.querySelector('.effect-level__value');
-const effectsList = document.querySelector('.effects__list');
-
-noUiSlider.create(effectSlider, {
-  range: {
-    min: 0,
-    max: 100,
-  },
-  start: 100,
-  step: 0.1
-});
-
-effectSlider.noUiSlider.on('update', () => {
-  effectValue.value = effectSlider.noUiSlider.get();
-  const filterName = imgUploadPreview.dataset.filterName;
-
-  if (filterName) {
-    const effect = FILTERS[filterName].effect;
-    const unit = FILTERS[filterName].unit;
-    imgUploadPreview.style.filter = `${effect}(${effectValue.value}${unit})`;
-  }
-});
-
-const updateSlider = (filterValue, slider) => {
-  slider.noUiSlider.updateOptions({
-    range: {
-      min: filterValue.min,
-      max: filterValue.max
-    },
-    start: filterValue.max,
-    step: filterValue.step
-  });
-};
-
-const effectsChangeHandler = (evt) => {
-  const filterName = evt.target.value;
-
-  if (evt.target.matches('.effects__radio')) {
-    imgUploadPreview.className = '';
-    imgUploadPreview.classList.add('img-upload__preview', `effects__preview--${filterName}`);
-    imgUploadPreview.dataset.filterName = filterName;
-
-    const filter = FILTERS[filterName];
-
-    if (filter) {
-      const effect = filter.effect;
-      const value = filter.max;
-      const unit = filter.unit;
-      imgUploadPreview.style.filter = `${effect}(${value}${unit})`;
-
-      updateSlider(filter, effectSlider);
-      effectSlider.classList.remove('visually-hidden');
-    } else {
-      imgUploadPreview.style.filter = '';
-      effectSlider.classList.add('visually-hidden');
-    }
-  }
-};
-
-const changeImagePreview = (scale) => {
-  imgUploadPreview.style.transform = `scale(${scale / 100})`;
-};
-
-const decreaseScale = () => {
-  let scale = parseInt(scaleControlValue.value, 10);
-
-  if (scale > MIN_SCALE_CONTROL) {
-    scale -= SCALE_CONTROL_STEP;
-    scaleControlValue.value = `${scale}%`;
-    changeImagePreview (scale);
-  }
-};
-
-const increaseScale = () => {
-  let scale = parseInt(scaleControlValue.value, 10);
-
-  if (scale < MAX_SCALE_CONTROL) {
-    scale += SCALE_CONTROL_STEP;
-    scaleControlValue.value = `${scale}%`;
-    changeImagePreview (scale);
-  }
-};
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__validate', // Элемент, на который будут добавляться классы
@@ -238,8 +128,8 @@ const formCloseHandler =  () => {
   textDescription.removeEventListener('focusout', buttonEscRestoreHandler);
   textHashtags.removeEventListener('focusin', buttonEscCancelHandler);
   textHashtags.removeEventListener('focusout', buttonEscRestoreHandler);
-  scaleControlSmaller.removeEventListener('click', decreaseScale);
-  scaleControlBigger.removeEventListener('click', increaseScale);
+  scaleControlSmaller.removeEventListener('click', scaleDecreaseHandler);
+  scaleControlBigger.removeEventListener('click', scaleIncreaseHandler);
   effectsList.removeEventListener('change', effectsChangeHandler);
 
   changeImagePreview(100);
@@ -268,8 +158,8 @@ const formOpenHandler = () => {
   textDescription.addEventListener('focusout', buttonEscRestoreHandler);
   textHashtags.addEventListener('focusin', buttonEscCancelHandler);
   textHashtags.addEventListener('focusout', buttonEscRestoreHandler);
-  scaleControlSmaller.addEventListener('click', decreaseScale);
-  scaleControlBigger.addEventListener('click', increaseScale);
+  scaleControlSmaller.addEventListener('click', scaleDecreaseHandler);
+  scaleControlBigger.addEventListener('click', scaleIncreaseHandler);
 
   if (imgUploadPreview.matches('.effects__preview--none')) {
     effectSlider.classList.add('visually-hidden');
