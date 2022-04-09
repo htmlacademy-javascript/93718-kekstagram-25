@@ -8,6 +8,44 @@ const SCALE_CONTROL_STEP = 25;
 const MIN_SCALE_CONTROL = 25;
 const MAX_SCALE_CONTROL = 100;
 
+const FILTERS = {
+  chrome: {
+    effect: 'grayscale',
+    min: 0,
+    max: 1,
+    step: 0.1,
+    unit: ''
+  },
+  sepia: {
+    effect: 'sepia',
+    min: 0,
+    max: 1,
+    step: 0.1,
+    unit: ''
+  },
+  marvin: {
+    effect: 'invert',
+    min: 0,
+    max: 100,
+    step: 1,
+    unit: '%'
+  },
+  phobos: {
+    effect: 'blur',
+    min: 0,
+    max: 3,
+    step: 0.1,
+    unit: 'px'
+  },
+  heat: {
+    effect: 'brightness',
+    min: 1,
+    max: 3,
+    step: 0.1,
+    unit: ''
+  }
+};
+
 const body = document.querySelector('body');
 const uploadForm = body.querySelector('.img-upload__form');
 const uploadFileForm = uploadForm.querySelector('#upload-file');
@@ -19,6 +57,9 @@ const imgUploadPreview = uploadForm.querySelector('.img-upload__preview');
 const scaleControlSmaller = uploadForm.querySelector('.scale__control--smaller');
 const scaleControlBigger = uploadForm.querySelector('.scale__control--bigger');
 const scaleControlValue = uploadForm.querySelector('.scale__control--value');
+const effectSlider = uploadForm.querySelector('.effect-level__slider');
+const effectValue = uploadForm.querySelector('.effect-level__value');
+const effectsList = document.querySelector('.effects__list');
 
 const changeImagePreview = (scale) => {
   imgUploadPreview.style.transform = `scale(${scale / 100})`;
