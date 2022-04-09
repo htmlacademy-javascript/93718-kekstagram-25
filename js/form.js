@@ -81,6 +81,42 @@ effectSlider.noUiSlider.on('update', () => {
   }
 });
 
+const updateSlider = (filterValue, slider) => {
+  slider.noUiSlider.updateOptions({
+    range: {
+      min: filterValue.min,
+      max: filterValue.max
+    },
+    start: filterValue.max,
+    step: filterValue.step
+  });
+};
+
+const effectsChangeHandler = (evt) => {
+  const filterName = evt.target.value;
+
+  if (evt.target.matches('.effects__radio')) {
+    imgUploadPreview.className = '';
+    imgUploadPreview.classList.add('img-upload__preview', `effects__preview--${filterName}`);
+    imgUploadPreview.dataset.filterName = filterName;
+
+    const filter = FILTERS[filterName];
+
+    if (filter) {
+      const effect = filter.effect;
+      const value = filter.max;
+      const unit = filter.unit;
+      imgUploadPreview.style.filter = `${effect}(${value}${unit})`;
+
+      updateSlider(filter, effectSlider);
+      effectSlider.classList.remove('visually-hidden');
+    } else {
+      imgUploadPreview.style.filter = '';
+      effectSlider.classList.add('visually-hidden');
+    }
+  }
+};
+
 const changeImagePreview = (scale) => {
   imgUploadPreview.style.transform = `scale(${scale / 100})`;
 };
