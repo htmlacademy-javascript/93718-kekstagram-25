@@ -1,4 +1,3 @@
-import {generateData} from './data.js';
 import {bigPictureShow} from './popup.js';
 
 const picturesContainer = document.querySelector('.pictures');
@@ -6,8 +5,6 @@ const picturesTemplate = document.querySelector('#picture')
   .content
   .querySelector('.picture');
 const fragment = document.createDocumentFragment();
-
-const miniaturesData = generateData();
 
 miniaturesData.forEach(({url, likes, comments, description}) => {
   const elementPicture = picturesTemplate.cloneNode(true);

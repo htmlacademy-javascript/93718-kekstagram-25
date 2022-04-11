@@ -31,4 +31,10 @@ const scaleIncreaseHandler = () => {
   }
 };
 
-export {scaleControlSmaller, scaleControlBigger, changeImagePreview, scaleDecreaseHandler, scaleIncreaseHandler};
+export {
+  scaleControlSmaller,
+  scaleControlBigger,
+  changeImagePreview,
+  scaleDecreaseHandler,
+  scaleIncreaseHandler
+};
