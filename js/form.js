@@ -1,4 +1,21 @@
-import {checkMaxLength, isEscapeKey} from './util.js';
+import {
+  checkMaxLength,
+  isEscapeKey
+} from './util.js';
+
+import {
+  effectsList,
+  effectSlider,
+  effectsChangeHandler
+} from './effects.js';
+
+import {
+  scaleControlSmaller,
+  scaleControlBigger,
+  changeImagePreview,
+  scaleDecreaseHandler,
+  scaleIncreaseHandler
+} from './scale-control.js';
 
 const MAX_LENGTH_DESCRIPTION = 140;
 const MAX_HASHTAGS = 5;
@@ -10,6 +27,7 @@ const uploadForm = body.querySelector('.img-upload__form');
 const uploadFileForm = uploadForm.querySelector('#upload-file');
 const closePopupButton = uploadForm.querySelector('#upload-cancel');
 const imgUploadOverlay = uploadForm.querySelector('.img-upload__overlay');
+const imgUploadPreview = uploadForm.querySelector('.img-upload__preview');
 const textHashtags = uploadForm.querySelector('.text__hashtags');
 const textDescription = uploadForm.querySelector('.text__description');
 
@@ -110,7 +128,14 @@ const formCloseHandler =  () => {
   textDescription.removeEventListener('focusout', buttonEscRestoreHandler);
   textHashtags.removeEventListener('focusin', buttonEscCancelHandler);
   textHashtags.removeEventListener('focusout', buttonEscRestoreHandler);
+  scaleControlSmaller.removeEventListener('click', scaleDecreaseHandler);
+  scaleControlBigger.removeEventListener('click', scaleIncreaseHandler);
+  effectsList.removeEventListener('change', effectsChangeHandler);
 
+  changeImagePreview(100);
+  imgUploadPreview.className = '';
+  imgUploadPreview.classList.add('img-upload__preview', 'effects__preview--none');
+  imgUploadPreview.style.filter = 'none';
   uploadForm.reset();
 };
 
@@ -133,6 +158,14 @@ const formOpenHandler = () => {
   textDescription.addEventListener('focusout', buttonEscRestoreHandler);
   textHashtags.addEventListener('focusin', buttonEscCancelHandler);
   textHashtags.addEventListener('focusout', buttonEscRestoreHandler);
+  scaleControlSmaller.addEventListener('click', scaleDecreaseHandler);
+  scaleControlBigger.addEventListener('click', scaleIncreaseHandler);
+
+  if (imgUploadPreview.matches('.effects__preview--none')) {
+    effectSlider.classList.add('visually-hidden');
+  }
+
+  effectsList.addEventListener('change', effectsChangeHandler);
 };
 
 uploadFileForm.addEventListener('change', formOpenHandler);
