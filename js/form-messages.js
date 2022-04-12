@@ -22,7 +22,7 @@ const showMessageEvent = (element, elementButton, elementInner) => {
   });
 
   element.addEventListener(('click'), (evt) => {
-    if (evt.target !== elementInner) {
+    if (evt.target !== elementInner && evt.target !== elementInner.querySelector('h2')) {
       element.remove();
     }
   });
