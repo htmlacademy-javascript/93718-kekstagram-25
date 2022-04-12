@@ -1,5 +1,7 @@
 import {sendData} from './api.js';
 
+import {showMessageSuccess, showMessageError} from './form-messages.js';
+
 import {
   checkMaxLength,
   isEscapeKey
@@ -198,10 +200,12 @@ function formSubmitHandler (onSuccess) {
         () => {
           onSuccess();
           unblockSubmit();
+          showMessageSuccess();
           formCloseHandler();
         },
         () => {
           unblockSubmit();
+          showMessageError();
           formCloseHandler();
         },
         new FormData(evt.target),
