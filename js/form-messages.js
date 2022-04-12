@@ -8,33 +8,36 @@ const errorTemplate = document.querySelector('#error')
 const successFragment = document.createDocumentFragment();
 const errorFragment = document.createDocumentFragment();
 
+const showMessageEvent = (element, elementButton, elementInner) => {
+  document.addEventListener('keydown', (evt) => {
+    if (isEscapeKey(evt)) {
+      element.remove();
+    }
+  });
+
+  element.addEventListener(('click'), (evt) => {
+    if (evt.target === elementButton) {
+      element.remove();
+    }
+  });
+
+  element.addEventListener(('click'), (evt) => {
+    if (evt.target === elementInner) {
+      element.remove();
+    }
+  });
+};
 
 const showMessageSuccess = () => {
   const messageSuccess = successTemplate.cloneNode(true);
   successFragment.appendChild(messageSuccess);
   body.appendChild(successFragment);
 
-  const successButton = document.querySelector('.success__button');
   const successElement = document.querySelector('.success');
+  const successButton = document.querySelector('.success__button');
   const successInner = document.querySelector('.success__inner');
 
-  document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      successElement.remove();
-    }
-  });
-
-  successElement.addEventListener(('click'), (evt) => {
-    if (evt.target === successButton) {
-      successElement.remove();
-    }
-  });
-
-  successElement.addEventListener(('click'), (evt) => {
-    if (evt.target === successInner) {
-      successElement.remove();
-    }
-  });
+  showMessageEvent(successElement, successButton, successInner);
 };
 
 const showMessageError = () => {
@@ -42,27 +45,11 @@ const showMessageError = () => {
   errorFragment.appendChild(messageError);
   body.appendChild(errorFragment);
 
-  const errorButton = document.querySelector('.error__button');
   const errorElement = document.querySelector('.error');
+  const errorButton = document.querySelector('.error__button');
   const errorInner = document.querySelector('.error__inner');
 
-  document.addEventListener('keydown', (evt) => {
-    if (isEscapeKey(evt)) {
-      errorElement.remove();
-    }
-  });
-
-  errorElement.addEventListener(('click'), (evt) => {
-    if (evt.target === errorButton) {
-      errorElement.remove();
-    }
-  });
-
-  errorElement.addEventListener(('click'), (evt) => {
-    if (evt.target === errorInner) {
-      errorElement.remove();
-    }
-  });
+  showMessageEvent(errorElement, errorButton, errorInner);
 };
 
 export {showMessageSuccess, showMessageError};
