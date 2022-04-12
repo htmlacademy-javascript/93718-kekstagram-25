@@ -1,3 +1,7 @@
+import {sendData} from './api.js';
+
+import {showMessageSuccess, showMessageError} from './form-messages.js';
+
 import {
   checkMaxLength,
   isEscapeKey
@@ -24,6 +28,7 @@ const REG = /^#[\dA-Za-zА-Яа-яЁё0-9]{1,}$/;
 
 const body = document.querySelector('body');
 const uploadForm = body.querySelector('.img-upload__form');
+const uploadSubmit = uploadForm.querySelector('.img-upload__submit');
 const uploadFileForm = uploadForm.querySelector('#upload-file');
 const closePopupButton = uploadForm.querySelector('#upload-cancel');
 const imgUploadOverlay = uploadForm.querySelector('.img-upload__overlay');
@@ -33,6 +38,8 @@ const textDescription = uploadForm.querySelector('.text__description');
 
 const pristine = new Pristine(uploadForm, {
   classTo: 'img-upload__validate', // Элемент, на который будут добавляться классы
+  errorClass: 'text--invalid', // Класс, обозначающий невалидное поле
+  successClass: 'text--valid', // Класс, обозначающий валидное поле
   errorTextParent: 'img-upload__validate', // Элемент, куда будет выводиться текст с ошибкой
   errorTextTag: 'div' // Тег, который будет обрамлять текст ошибки
 });
@@ -139,6 +146,16 @@ const formCloseHandler =  () => {
   uploadForm.reset();
 };
 
+const blockSubmit = () => {
+  uploadSubmit.disabled = true;
+  uploadSubmit.textContent = 'Публикую...';
+};
+
+const unblockSubmit = () => {
+  uploadSubmit.disabled = false;
+  uploadSubmit.textContent = 'Опубликовать';
+};
+
 function buttonEscCloseHandler (evt) {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
@@ -169,3 +186,34 @@ const formOpenHandler = () => {
 };
 
 uploadFileForm.addEventListener('change', formOpenHandler);
+
+
+function formSubmitHandler (onSuccess) {
+  uploadForm.addEventListener('submit', (evt) => {
+    evt.preventDefault();
+    const isValid = pristine.validate();
+
+    if (isValid) {
+      blockSubmit();
+
+      sendData(
+        () => {
+          onSuccess();
+          unblockSubmit();
+          showMessageSuccess();
+          formCloseHandler();
+        },
+        () => {
+          unblockSubmit();
+          showMessageError();
+          formCloseHandler();
+        },
+        new FormData(evt.target),
+      );
+    }
+  });
+}
+
+formSubmitHandler(formCloseHandler);
+
+export {body};
