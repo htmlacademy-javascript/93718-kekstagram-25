@@ -1,4 +1,4 @@
-import {arrayPhotosData} from './api.js';
+import {getData} from './api.js';
 import {createRandomId} from './util.js';
 
 import {
@@ -20,6 +20,12 @@ const RERENDER_DELAY = 500;
 const filter = document.querySelector('.img-filters');
 const filtersForm = filter.querySelector('.img-filters__form');
 const filtersButton = filtersForm.querySelectorAll('.img-filters__button');
+
+let arrayPhotosData = [];
+
+getData((data) => {
+  arrayPhotosData = data;
+});
 
 const clearPictures = () => {
   const pictures = document.querySelectorAll('.picture');
