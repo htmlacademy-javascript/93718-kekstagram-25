@@ -1,11 +1,18 @@
 import {showAlert} from './util.js';
 
+let arrayPhotosData = [];
+
+const getPhotosData = (data) => {
+  arrayPhotosData = data;
+};
+
 const getData = (onSuccess) => {
   fetch('https://25.javascript.pages.academy/kekstagram/data')
     .then((response) =>
       response.json())
     .then((data) => {
       onSuccess(data);
+      getPhotosData(data);
     })
     .catch(() => {
       showAlert('Не удалось загрузить изображения с сервера', 'red', '16px');
@@ -32,4 +39,4 @@ const sendData = (onSuccess, onFail, body) => {
     });
 };
 
-export {getData, sendData};
+export {getData, sendData, arrayPhotosData};
