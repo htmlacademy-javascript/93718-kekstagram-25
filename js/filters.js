@@ -9,10 +9,13 @@ import {
 } from './photo-miniatures.js';
 
 import {bigPictureShow} from './popup.js';
+import {debounce} from './util.js';
 
 const RANDOM_PHOTOS_COUNT = 10;
 const MIN_ID_COUNT = 0;
 const MAX_ID_COUNT = 24;
+
+const RERENDER_DELAY = 500;
 
 const filter = document.querySelector('.img-filters');
 const filtersForm = filter.querySelector('.img-filters__form');
@@ -102,7 +105,7 @@ const filterDiscussed = (photosData) => {
   picturesContainer.appendChild(fragment);
 };
 
-const filtersButtonShowHandler = (evt) => {
+const filtersButtonClickHandler = (evt) => {
   evt.preventDefault();
 
   if (!evt.target.className.match('img-filters__button--active') && evt.target.className.match('img-filters__button')) {
@@ -134,7 +137,7 @@ const filtersButtonShowHandler = (evt) => {
 
 const showFiltersForm = () => {
   filter.classList.remove('img-filters--inactive');
-  filtersForm.addEventListener('click', filtersButtonShowHandler);
+  filtersForm.addEventListener('click', debounce(filtersButtonClickHandler, RERENDER_DELAY));
 };
 
 export {showFiltersForm};

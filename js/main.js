@@ -6,5 +6,5 @@ import './form.js';
 
 getData ((data) => {
   renderPhotoMiniatures(data);
-  showFiltersForm();
+  showFiltersForm(data);
 });
