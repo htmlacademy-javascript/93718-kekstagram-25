@@ -1,6 +1,23 @@
+import {arrayPhotosData} from './api.js';
+
+import {renderPhotoMiniatures} from './photo-miniatures.js';
+
 const filter = document.querySelector('.img-filters');
 const filtersForm = filter.querySelector('.img-filters__form');
 const filtersButton = filtersForm.querySelectorAll('.img-filters__button');
+
+const clearPictures = () => {
+  const pictures = document.querySelectorAll('.picture');
+
+  pictures.forEach((picture) => {
+    picture.remove();
+  });
+};
+
+const filterDefault = () => {
+  clearPictures();
+  renderPhotoMiniatures(arrayPhotosData);
+};
 
 const filtersButtonShowHandler = (evt) => {
   evt.preventDefault();
