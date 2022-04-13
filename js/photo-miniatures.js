@@ -26,4 +26,9 @@ const renderPhotoMiniatures = (miniaturesData) => {
   picturesContainer.appendChild(fragment);
 };
 
-export {renderPhotoMiniatures};
+export {
+  renderPhotoMiniatures,
+  picturesContainer,
+  picturesTemplate,
+  fragment
+};

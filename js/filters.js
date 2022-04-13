@@ -111,6 +111,24 @@ const filtersButtonShowHandler = (evt) => {
     arrayButtons.forEach((button) => button.classList.remove('img-filters__button--active'));
 
     evt.target.classList.add('img-filters__button--active');
+
+    switch (evt.target.id) {
+      case 'filter-random': {
+        filterRandom(arrayPhotosData);
+        break;
+      }
+      case 'filter-discussed': {
+        filterDiscussed(arrayPhotosData);
+        break;
+      }
+      case 'filter-default': {
+        filterDefault();
+        break;
+      }
+      default: {
+        clearPictures();
+      }
+    }
   }
 };
 
