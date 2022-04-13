@@ -32,6 +32,22 @@ const createId = () => {
   };
 };
 
+const createRandomId = (min, max) => {
+  const previousValues = [];
+
+  return () => {
+    let currentValue = getRandomNumber(min, max);
+    if (previousValues.length >= (max - min + 1)) {
+      return null;
+    }
+    while (previousValues.includes(currentValue)) {
+      currentValue = getRandomNumber(min, max);
+    }
+    previousValues.push(currentValue);
+    return currentValue;
+  };
+};
+
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
 const showAlert = (message, backgroundColor, fontSize) => {
@@ -55,4 +71,12 @@ const showAlert = (message, backgroundColor, fontSize) => {
   }, ALERT_SHOW_TIME);
 };
 
-export {getRandomNumber, checkMaxLength, createRandomElement, createId, isEscapeKey, showAlert};
+export {
+  getRandomNumber,
+  checkMaxLength,
+  createRandomElement,
+  createId,
+  createRandomId,
+  isEscapeKey,
+  showAlert
+};
