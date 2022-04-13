@@ -77,6 +77,31 @@ const compareNumbers = (commentA, commentB) => {
   return numB - numA;
 };
 
+const filterDiscussed = (photosData) => {
+  clearPictures();
+
+  photosData
+    .slice()
+    .sort(compareNumbers)
+    .forEach((photo) => {
+      const elementPicture = picturesTemplate.cloneNode(true);
+
+      elementPicture.querySelector('.picture__img').src = photo.url;
+      elementPicture.querySelector('.picture__likes').textContent = photo.likes;
+      elementPicture.querySelector('.picture__comments').textContent = photo.comments.length;
+
+      elementPicture.addEventListener('click', (evt) => {
+        evt.preventDefault();
+
+        bigPictureShow(photo);
+      });
+
+      fragment.appendChild(elementPicture);
+    });
+
+  picturesContainer.appendChild(fragment);
+};
+
 const filtersButtonShowHandler = (evt) => {
   evt.preventDefault();
 
