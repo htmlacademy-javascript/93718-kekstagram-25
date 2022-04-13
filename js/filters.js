@@ -64,6 +64,19 @@ const filterRandom = (photosData) => {
   picturesContainer.appendChild(fragment);
 };
 
+const getCommentLength = (photo) => {
+  const commentLength = photo.comments.length;
+
+  return commentLength;
+};
+
+const compareNumbers = (commentA, commentB) => {
+  const numA = getCommentLength(commentA);
+  const numB = getCommentLength(commentB);
+
+  return numB - numA;
+};
+
 const filtersButtonShowHandler = (evt) => {
   evt.preventDefault();
 
