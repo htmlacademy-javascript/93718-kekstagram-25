@@ -1,6 +1,5 @@
-import {body} from './form-messages.js';
 import {sendData} from './api.js';
-import {showMessageSuccess, showMessageError} from './form-messages.js';
+import {body, showMessageSuccess, showMessageError} from './form-messages.js';
 
 import {
   checkMaxLength,
