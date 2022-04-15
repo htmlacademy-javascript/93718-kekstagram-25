@@ -4,12 +4,10 @@ const getData = (onSuccess) => {
   fetch('https://25.javascript.pages.academy/kekstagram/data')
     .then((response) =>
       response.json())
-    .then((data) => {
-      onSuccess(data);
-    })
-    .catch(() => {
-      showAlert('Не удалось загрузить изображения с сервера', 'red', '16px');
-    });
+    .then((data) =>
+      onSuccess(data))
+    .catch(() =>
+      showAlert('Не удалось загрузить изображения с сервера', 'red', '16px'));
 };
 
 const sendData = (onSuccess, onFail, body) => {
