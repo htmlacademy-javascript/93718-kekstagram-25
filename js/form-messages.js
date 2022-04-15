@@ -1,6 +1,6 @@
-import {body} from './form.js';
 import {isEscapeKey} from './util.js';
 
+const body = document.querySelector('body');
 const successTemplate = document.querySelector('#success')
   .content.querySelector('.success');
 const errorTemplate = document.querySelector('#error')
@@ -8,20 +8,24 @@ const errorTemplate = document.querySelector('#error')
 const successFragment = document.createDocumentFragment();
 const errorFragment = document.createDocumentFragment();
 
-const showMessageEvent = (element, elementButton, elementInner) => {
-  document.addEventListener('keydown', (evt) => {
+function elementMessageCloseHandler (element) {
+  return function (evt) {
     if (isEscapeKey(evt)) {
+      evt.preventDefault();
+
       element.remove();
     }
-  });
+  };
+}
 
-  element.addEventListener(('click'), (evt) => {
+const showMessageEvent = (element, elementButton, elementInner) => {
+  element.addEventListener('click', (evt) => {
     if (evt.target === elementButton) {
       element.remove();
     }
   });
 
-  element.addEventListener(('click'), (evt) => {
+  element.addEventListener('click', (evt) => {
     if (evt.target !== elementInner && evt.target !== elementInner.querySelector('h2')) {
       element.remove();
     }
@@ -38,6 +42,7 @@ const showMessageSuccess = () => {
   const successInner = document.querySelector('.success__inner');
 
   showMessageEvent(successElement, successButton, successInner);
+  document.addEventListener('keydown', elementMessageCloseHandler(successElement), {once: true});
 };
 
 const showMessageError = () => {
@@ -50,6 +55,7 @@ const showMessageError = () => {
   const errorInner = document.querySelector('.error__inner');
 
   showMessageEvent(errorElement, errorButton, errorInner);
+  document.addEventListener('keydown', elementMessageCloseHandler(errorElement), {once: true});
 };
 
-export {showMessageSuccess, showMessageError};
+export {body, showMessageSuccess, showMessageError};
