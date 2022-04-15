@@ -36,7 +36,7 @@ const FILTERS = {
   }
 };
 
-const imgUploadPreview = document.querySelector('.img-upload__preview');
+const uploadPreview = document.querySelector('.img-upload__preview');
 const effectsList = document.querySelector('.effects__list');
 const effectSlider = document.querySelector('.effect-level__slider');
 const effectValue = document.querySelector('.effect-level__value');
@@ -52,12 +52,12 @@ noUiSlider.create(effectSlider, {
 
 effectSlider.noUiSlider.on('update', () => {
   effectValue.value = effectSlider.noUiSlider.get();
-  const filterName = imgUploadPreview.dataset.filterName;
+  const filterName = uploadPreview.dataset.filterName;
 
   if (filterName) {
     const effect = FILTERS[filterName].effect;
     const unit = FILTERS[filterName].unit;
-    imgUploadPreview.style.filter = `${effect}(${effectValue.value}${unit})`;
+    uploadPreview.style.filter = `${effect}(${effectValue.value}${unit})`;
   }
 });
 
@@ -76,9 +76,9 @@ const effectsChangeHandler = (evt) => {
   const filterName = evt.target.value;
 
   if (evt.target.matches('.effects__radio')) {
-    imgUploadPreview.className = '';
-    imgUploadPreview.classList.add('img-upload__preview', `effects__preview--${filterName}`);
-    imgUploadPreview.dataset.filterName = filterName;
+    uploadPreview.className = '';
+    uploadPreview.classList.add('img-upload__preview', `effects__preview--${filterName}`);
+    uploadPreview.dataset.filterName = filterName;
 
     const filter = FILTERS[filterName];
 
@@ -86,15 +86,15 @@ const effectsChangeHandler = (evt) => {
       const effect = filter.effect;
       const value = filter.max;
       const unit = filter.unit;
-      imgUploadPreview.style.filter = `${effect}(${value}${unit})`;
+      uploadPreview.style.filter = `${effect}(${value}${unit})`;
 
       updateSlider(filter, effectSlider);
       effectSlider.classList.remove('visually-hidden');
     } else {
-      imgUploadPreview.style.filter = '';
+      uploadPreview.style.filter = '';
       effectSlider.classList.add('visually-hidden');
     }
   }
 };
 
-export {effectsList, effectSlider, effectsChangeHandler};
+export {uploadPreview, effectsList, effectSlider, effectsChangeHandler};

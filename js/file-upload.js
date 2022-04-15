@@ -1,7 +1,9 @@
+import {uploadPreview} from './effects.js';
+
 const FILE_TYPES = ['gif', 'jpg', 'jpeg', 'png'];
 
 const selectPhoto = document.querySelector('.img-upload__start input[type=file]');
-const preview = document.querySelector('.img-upload__preview img');
+const imgPreview = uploadPreview.querySelector('img');
 
 selectPhoto.addEventListener('change', () => {
   const file = selectPhoto.files[0];
@@ -10,7 +12,7 @@ selectPhoto.addEventListener('change', () => {
   const matches = FILE_TYPES.some((elem) => fileName.endsWith(elem));
 
   if (matches) {
-    preview.src = URL.createObjectURL(file);
+    imgPreview.src = URL.createObjectURL(file);
   }
 });
 
