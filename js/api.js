@@ -1,7 +1,10 @@
 import {showAlert} from './util.js';
 
+const URL_GET = 'https://25.javascript.pages.academy/kekstagram/data';
+const URL_POST = 'https://25.javascript.pages.academy/kekstagram';
+
 const getData = (onSuccess) => {
-  fetch('https://25.javascript.pages.academy/kekstagram/data')
+  fetch(URL_GET)
     .then((response) =>
       response.json())
     .then((data) =>
@@ -12,7 +15,7 @@ const getData = (onSuccess) => {
 
 const sendData = (onSuccess, onFail, body) => {
   fetch(
-    'https://25.javascript.pages.academy/kekstagram',
+    URL_POST,
     {
       method: 'POST',
       body,
