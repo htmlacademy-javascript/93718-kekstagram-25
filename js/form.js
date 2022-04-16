@@ -188,7 +188,6 @@ const formOpenHandler = () => {
 
 uploadFileForm.addEventListener('change', formOpenHandler);
 
-
 function formSubmitHandler (onSuccess) {
   uploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
