@@ -1,5 +1,8 @@
 import {sendData} from './api.js';
+<<<<<<< HEAD
 
+=======
+>>>>>>> d878d12309f47145ec48385e796bc155ccb222b7
 import {body, showMessageSuccess, showMessageError} from './form-messages.js';
 
 import {
