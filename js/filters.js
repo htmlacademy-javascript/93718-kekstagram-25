@@ -8,7 +8,7 @@ import {
   fragment
 } from './photo-miniatures.js';
 
-import {bigPictureShow} from './popup.js';
+import {showBigPicture} from './popup.js';
 import {debounce} from './util.js';
 
 const RANDOM_PHOTOS_COUNT = 10;
@@ -44,13 +44,13 @@ const filterRandom = (photosData) => {
   clearPictures();
 
   const getRandomId = createRandomId(MIN_ID_COUNT, MAX_ID_COUNT);
-  const idArray = [];
+  const identifiers = [];
 
   for (let i = 0; i < RANDOM_PHOTOS_COUNT; i++) {
-    idArray[i] = getRandomId();
+    identifiers[i] = getRandomId();
   }
 
-  idArray.forEach((id) => {
+  identifiers.forEach((id) => {
     photosData.forEach((photo) => {
       if (id === photo.id) {
         const elementPicture = picturesTemplate.cloneNode(true);
@@ -62,7 +62,7 @@ const filterRandom = (photosData) => {
         elementPicture.addEventListener('click', (evt) => {
           evt.preventDefault();
 
-          bigPictureShow(photo);
+          showBigPicture(photo);
         });
 
         fragment.appendChild(elementPicture);
@@ -102,7 +102,7 @@ const filterDiscussed = (photosData) => {
       elementPicture.addEventListener('click', (evt) => {
         evt.preventDefault();
 
-        bigPictureShow(photo);
+        showBigPicture(photo);
       });
 
       fragment.appendChild(elementPicture);

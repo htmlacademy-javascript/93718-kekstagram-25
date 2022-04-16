@@ -145,12 +145,12 @@ const formCloseHandler =  () => {
   uploadForm.reset();
 };
 
-const blockSubmit = () => {
+const disableSubmit = () => {
   uploadSubmit.disabled = true;
   uploadSubmit.textContent = 'Публикую...';
 };
 
-const unblockSubmit = () => {
+const enableSubmit = () => {
   uploadSubmit.disabled = false;
   uploadSubmit.textContent = 'Опубликовать';
 };
@@ -194,17 +194,17 @@ function formSubmitHandler (onSuccess) {
     const isValid = pristine.validate();
 
     if (isValid) {
-      blockSubmit();
+      disableSubmit();
 
       sendData(
         () => {
           onSuccess();
-          unblockSubmit();
+          enableSubmit();
           showMessageSuccess();
           formCloseHandler();
         },
         () => {
-          unblockSubmit();
+          enableSubmit();
           showMessageError();
           formCloseHandler();
         },
