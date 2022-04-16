@@ -1,4 +1,4 @@
-import {bigPictureShow} from './popup.js';
+import {showBigPicture} from './popup.js';
 
 const picturesContainer = document.querySelector('.pictures');
 const picturesTemplate = document.querySelector('#picture')
@@ -17,7 +17,7 @@ const renderPhotoMiniatures = (miniaturesData) => {
     elementPicture.addEventListener('click', (evt) => {
       evt.preventDefault();
 
-      bigPictureShow({url, likes, comments, description});
+      showBigPicture({url, likes, comments, description});
     });
 
     fragment.appendChild(elementPicture);

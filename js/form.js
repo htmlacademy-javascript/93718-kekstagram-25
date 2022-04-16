@@ -1,4 +1,5 @@
 import {sendData} from './api.js';
+
 import {body, showMessageSuccess, showMessageError} from './form-messages.js';
 
 import {
@@ -144,12 +145,12 @@ const formCloseHandler =  () => {
   uploadForm.reset();
 };
 
-const blockSubmit = () => {
+const disableSubmit = () => {
   uploadSubmit.disabled = true;
   uploadSubmit.textContent = 'Публикую...';
 };
 
-const unblockSubmit = () => {
+const enableSubmit = () => {
   uploadSubmit.disabled = false;
   uploadSubmit.textContent = 'Опубликовать';
 };
@@ -187,24 +188,23 @@ const formOpenHandler = () => {
 
 uploadFileForm.addEventListener('change', formOpenHandler);
 
-
 function formSubmitHandler (onSuccess) {
   uploadForm.addEventListener('submit', (evt) => {
     evt.preventDefault();
     const isValid = pristine.validate();
 
     if (isValid) {
-      blockSubmit();
+      disableSubmit();
 
       sendData(
         () => {
           onSuccess();
-          unblockSubmit();
+          enableSubmit();
           showMessageSuccess();
           formCloseHandler();
         },
         () => {
-          unblockSubmit();
+          enableSubmit();
           showMessageError();
           formCloseHandler();
         },

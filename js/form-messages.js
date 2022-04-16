@@ -8,54 +8,88 @@ const errorTemplate = document.querySelector('#error')
 const successFragment = document.createDocumentFragment();
 const errorFragment = document.createDocumentFragment();
 
-function elementMessageCloseHandler (element) {
-  return function (evt) {
-    if (isEscapeKey(evt)) {
-      evt.preventDefault();
+const messageSuccess = successTemplate.cloneNode(true);
+successFragment.appendChild(messageSuccess);
+body.appendChild(successFragment);
+const messageError = errorTemplate.cloneNode(true);
+errorFragment.appendChild(messageError);
+body.appendChild(errorFragment);
 
-      element.remove();
-    }
-  };
-}
+const successElement = document.querySelector('.success');
+const successButton = document.querySelector('.success__button');
+const successInner = document.querySelector('.success__inner');
+const errorElement = document.querySelector('.error');
+const errorButton = document.querySelector('.error__button');
+const errorInner = document.querySelector('.error__inner');
 
-const showMessageEvent = (element, elementButton, elementInner) => {
-  element.addEventListener('click', (evt) => {
-    if (evt.target === elementButton) {
-      element.remove();
-    }
-  });
+successElement.classList.add('hidden');
+errorElement.classList.add('hidden');
 
-  element.addEventListener('click', (evt) => {
-    if (evt.target !== elementInner && evt.target !== elementInner.querySelector('h2')) {
-      element.remove();
-    }
-  });
+const successEscCloseHandler = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+
+    hideElement(successElement);
+  }
 };
 
+const errorEscCloseHandler = (evt) => {
+  if (isEscapeKey(evt)) {
+    evt.preventDefault();
+
+    hideElement(errorElement);
+  }
+};
+
+const successButtonHandler = (evt) => {
+  if (evt.target === successButton) {
+    hideElement(successElement);
+  }
+};
+
+const errorButtonHandler = (evt) => {
+  if (evt.target === errorButton) {
+    hideElement(errorElement);
+  }
+};
+
+const successInnerClickHandler = (evt) => {
+  if (evt.target !== successInner && evt.target !== successInner.querySelector('h2')) {
+    hideElement(successElement);
+  }
+};
+
+const errorInnerClickHandler = (evt) => {
+  if (evt.target !== errorInner && evt.target !== errorInner.querySelector('h2')) {
+    hideElement(errorElement);
+  }
+};
+
+function hideElement (element) {
+  element.classList.add('hidden');
+
+  document.removeEventListener('keydown', successEscCloseHandler);
+  successButton.removeEventListener('click', successButtonHandler);
+  successElement.removeEventListener('click', successInnerClickHandler);
+  document.removeEventListener('keydown', errorEscCloseHandler);
+  errorButton.removeEventListener('click', errorButtonHandler);
+  errorElement.removeEventListener('click', errorInnerClickHandler);
+}
+
 const showMessageSuccess = () => {
-  const messageSuccess = successTemplate.cloneNode(true);
-  successFragment.appendChild(messageSuccess);
-  body.appendChild(successFragment);
+  successElement.classList.remove('hidden');
 
-  const successElement = document.querySelector('.success');
-  const successButton = document.querySelector('.success__button');
-  const successInner = document.querySelector('.success__inner');
-
-  showMessageEvent(successElement, successButton, successInner);
-  document.addEventListener('keydown', elementMessageCloseHandler(successElement), {once: true});
+  successButton.addEventListener('click', successButtonHandler);
+  successElement.addEventListener('click', successInnerClickHandler);
+  document.addEventListener('keydown', successEscCloseHandler);
 };
 
 const showMessageError = () => {
-  const messageError = errorTemplate.cloneNode(true);
-  errorFragment.appendChild(messageError);
-  body.appendChild(errorFragment);
+  errorElement.classList.remove('hidden');
 
-  const errorElement = document.querySelector('.error');
-  const errorButton = document.querySelector('.error__button');
-  const errorInner = document.querySelector('.error__inner');
-
-  showMessageEvent(errorElement, errorButton, errorInner);
-  document.addEventListener('keydown', elementMessageCloseHandler(errorElement), {once: true});
+  errorButton.addEventListener('click', errorButtonHandler);
+  errorElement.addEventListener('click', errorInnerClickHandler);
+  document.addEventListener('keydown', errorEscCloseHandler);
 };
 
 export {body, showMessageSuccess, showMessageError};
