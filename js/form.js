@@ -1,6 +1,5 @@
 import {sendData} from './api.js';
-
-import {showMessageSuccess, showMessageError} from './form-messages.js';
+import {body, showMessageSuccess, showMessageError} from './form-messages.js';
 
 import {
   checkMaxLength,
@@ -26,7 +25,6 @@ const MAX_HASHTAGS = 5;
 const MAX_LENGTH_HASHTAG = 20;
 const REG = /^#[\dA-Za-zА-Яа-яЁё0-9]{1,}$/;
 
-const body = document.querySelector('body');
 const uploadForm = body.querySelector('.img-upload__form');
 const uploadSubmit = uploadForm.querySelector('.img-upload__submit');
 const uploadFileForm = uploadForm.querySelector('#upload-file');
@@ -178,6 +176,8 @@ const formOpenHandler = () => {
   scaleControlSmaller.addEventListener('click', scaleDecreaseHandler);
   scaleControlBigger.addEventListener('click', scaleIncreaseHandler);
 
+  effectSlider.classList.add('visually-hidden');
+
   if (imgUploadPreview.matches('.effects__preview--none')) {
     effectSlider.classList.add('visually-hidden');
   }
@@ -215,5 +215,3 @@ function formSubmitHandler (onSuccess) {
 }
 
 formSubmitHandler(formCloseHandler);
-
-export {body};
